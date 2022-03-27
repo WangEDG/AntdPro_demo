@@ -3,9 +3,9 @@ import { StepsForm, ProFormText } from '@ant-design/pro-form';
 import { Modal } from 'antd';
 
 export type FormValueType = {
-  target?: string;
-  template?: string;
-  type?: string;
+  name?: string;
+  originalSound?: string;
+  physical?: number;
   time?: string;
   frequency?: string;
 } & Partial<API.RuleListItem>;
@@ -16,7 +16,9 @@ interface UpdateFormProps {
 export default function UpdateForm(props: UpdateFormProps) {
   const { configModalVisible } = props;
 
-  const onFinish = (value: FormValueType): void => {};
+  const onFinish = (values: FormValueType): void => {
+    console.log(values);
+  };
   return (
     <StepsForm
       stepsProps={{
@@ -41,14 +43,14 @@ export default function UpdateForm(props: UpdateFormProps) {
           </Modal>
         );
       }}
-      onFinish={(value): FormValueType => {
-        onFinish(value);
+      onFinish={(values: FormValueType): any => {
+        onFinish(values);
       }}
     >
       <StepsForm.StepForm title="基本信息">
         <ProFormText
           name="name"
-          label="规则名称"
+          label="规则编号"
           width="md"
           rules={[{ required: true, message: '规则名称为必填项' }]}
         />
@@ -56,19 +58,19 @@ export default function UpdateForm(props: UpdateFormProps) {
 
       <StepsForm.StepForm title="配置规则属性">
         <ProFormText
-          name="name"
-          label="规则名称"
+          name="originalSound"
+          label="舆情/客诉原声"
           width="md"
-          rules={[{ required: true, message: '规则名称为必填项' }]}
+          rules={[{ required: true, message: '舆情/客诉原声为必填项' }]}
         />
       </StepsForm.StepForm>
 
       <StepsForm.StepForm title="设置调度周期">
         <ProFormText
-          name="name"
-          label="规则名称"
+          name="physical"
+          label="舆情/客诉的实际情况"
           width="md"
-          rules={[{ required: true, message: '规则名称为必填项' }]}
+          rules={[{ required: true, message: '舆情/客诉的实际情况为必填项' }]}
         />
       </StepsForm.StepForm>
     </StepsForm>
