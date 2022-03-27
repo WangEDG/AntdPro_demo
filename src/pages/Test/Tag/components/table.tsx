@@ -171,6 +171,7 @@ export default function Table(props: any) {
         // }
         // headerTitle={renderTag()}
         columns={msg === 'one' ? applyForColumns : historyColumns}
+        rowKey="id"
         request={tableRequest}
         //搜索表单按钮自定义
         search={{
