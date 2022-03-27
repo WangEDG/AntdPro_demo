@@ -225,7 +225,7 @@ const TableList: React.FC = () => {
             setCurrentRow(record);
           }}
         >
-          <FormattedMessage id="pages.searchTable.config" defaultMessage="Configuration" />
+          配置
         </a>,
         <a key="subscribeAlert" href="https://procomponents.ant.design/">
           <FormattedMessage
@@ -342,6 +342,8 @@ const TableList: React.FC = () => {
         />
         <ProFormTextArea width="md" name="desc" />
       </ModalForm>
+
+      {/* 配置按钮表单 */}
       <UpdateForm
         onSubmit={async (value) => {
           const success = await handleUpdate(value);

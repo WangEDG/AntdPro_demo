@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card } from 'antd';
-import style from './index.less';
+
 import Table from './components/table';
+
+import style from './index.less';
 
 export default function Tab() {
   const [activeTabKey, setActiveTabKey] = useState('one');

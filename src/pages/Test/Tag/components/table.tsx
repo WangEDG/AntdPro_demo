@@ -5,8 +5,13 @@ import type { ProColumns } from '@ant-design/pro-table';
 // import { PlusOutlined } from '@ant-design/icons';
 // import { useState } from 'react';
 
+import UpdateForm from './updateForm';
+import { useState } from 'react';
+
 export default function Table(props: any) {
   const { msg } = props;
+
+  const [configModalVisible, setConfigModalVisible] = useState<boolean>(false);
 
   //申请记录
   const applyForColumns: ProColumns<API.RuleListItem>[] = [
@@ -51,22 +56,14 @@ export default function Table(props: any) {
         return [
           <a
             key="config"
-            // onClick={() => {
-            //   handleUpdateModalVisible(true);
-            //   setCurrentRow(record);
-            // }}
+            onClick={() => {
+              setConfigModalVisible(true);
+            }}
           >
-            详情
+            配置
           </a>,
-          <a
-            key="cancel"
-            // onClick={() => {
-            //   handleUpdateModalVisible(true);
-            //   setCurrentRow(record);
-            // }}
-          >
-            取消
-          </a>,
+          <a key="detail">详情</a>,
+          <a key="cancel">取消</a>,
         ];
       },
     },
@@ -109,6 +106,7 @@ export default function Table(props: any) {
       },
     },
   ];
+
   //表格数据
   const tableRequest = (): any => {
     // debugger;
@@ -143,6 +141,7 @@ export default function Table(props: any) {
       total: msg === 'one' ? oneTableData.length : twoTableData.length,
     };
   };
+
   // const [tagList] = useState([
   //   '测试记录1',
   //   '测试记录2',
@@ -162,7 +161,6 @@ export default function Table(props: any) {
   // };
   return (
     <>
-      <div>{/* <Tag>124</Tag> */}</div>
       <ProTable
         // headerTitle={
         //   <>
@@ -188,6 +186,14 @@ export default function Table(props: any) {
         //toolBarRender={false}
         //关闭整个操作栏
         options={false}
+      />
+
+      {/* 配置表单 (分布表单) */}
+      <UpdateForm
+        configModalVisible={configModalVisible}
+        onCancel={() => {
+          setConfigModalVisible(false);
+        }}
       />
     </>
   );
