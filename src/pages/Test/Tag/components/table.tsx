@@ -18,6 +18,9 @@ export default function Table(props: any) {
     {
       title: '规则编号',
       dataIndex: 'name',
+      // 排序
+      sorter: (a: any, b: any) => a.name - b.name,
+      width: 120,
     },
     {
       title: '舆情/客诉原声',
@@ -42,6 +45,7 @@ export default function Table(props: any) {
     {
       title: '状态',
       dataIndex: 'status',
+      width: 120,
       valueEnum: {
         0: { text: '进行中', status: 'Processing' },
         1: { text: '已关闭', status: 'error' },
@@ -52,6 +56,7 @@ export default function Table(props: any) {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
+      width: 150,
       render: (_, record) => {
         return [
           <a
@@ -62,7 +67,15 @@ export default function Table(props: any) {
           >
             配置
           </a>,
-          <a key="detail">详情</a>,
+          <a
+            key="detail"
+            onClick={() => {
+              console.log(_);
+              console.log(record);
+            }}
+          >
+            详情
+          </a>,
           <a key="cancel">取消</a>,
         ];
       },
@@ -108,17 +121,29 @@ export default function Table(props: any) {
   ];
 
   //表格数据
-  const tableRequest = (): any => {
-    // debugger;
+  const tableRequest = (params: any, sort: any, filter: any): any => {
+    debugger;
+    console.log(params);
+    console.log(sort);
+    console.log(filter);
+
     const oneTableData: any = [
       {
+        id: '1',
+        name: '78900123460',
+        originalSound: '长大后懂得了一个道理，不贬低别人喜欢的东西，是一种素养',
+        content: '愿你被生活温柔以待，愿你温柔地对待生活',
+        physical: '难过的时候，就把自己当成另一个人。当初怎么安慰别人，现在就怎么安慰自己',
+        nature: '正常维权事件',
+        status: 1,
+      },
+      {
         id: '3',
-        name: '银泰城电站',
-        address: '天府五街银泰城',
-        principal: '小李',
-        phone: '15360841456',
-        snumber: '56542236780113755',
-        ynumber: '409657',
+        name: '8465780235',
+        originalSound: '长大后懂得了一个道理，不贬低别人喜欢的东西，是一种素养',
+        content: '愿你被生活温柔以待，愿你温柔地对待生活',
+        physical: '难过的时候，就把自己当成另一个人。当初怎么安慰别人，现在就怎么安慰自己',
+        nature: '正常维权事件',
         status: 3,
       },
     ];
