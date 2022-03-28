@@ -1,11 +1,12 @@
 // import React from 'react';
 import ProTable from '@ant-design/pro-table';
 import type { ProColumns } from '@ant-design/pro-table';
-// import { Button, Tag, Space, Select } from 'antd';
+import { Button } from 'antd';
 // import { PlusOutlined } from '@ant-design/icons';
 // import { useState } from 'react';
 
 import UpdateForm from './updateForm';
+import CollectForm from './collectForm';
 import { useState } from 'react';
 
 export default function Table(props: any) {
@@ -200,12 +201,9 @@ export default function Table(props: any) {
         search={{
           defaultCollapsed: false,
           labelWidth: 'auto',
-          //   optionRender: (searchConfig, formProps, dom) => {
-          //     return [
-          //       //   ...dom.reverse(),
-          //       <Button>导出</Button>,
-          //     ];
-          //   },
+          optionRender: (searchConfig, formProps, dom) => {
+            return [...dom.reverse(), <CollectForm key="search" />];
+          },
         }}
         //操作栏自定义
         //toolBarRender={false}
@@ -220,6 +218,8 @@ export default function Table(props: any) {
           setConfigModalVisible(false);
         }}
       />
+
+      {/* 收藏搜索 */}
     </>
   );
 }
