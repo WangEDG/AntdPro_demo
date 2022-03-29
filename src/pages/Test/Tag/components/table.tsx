@@ -1,13 +1,15 @@
 // import React from 'react';
 import ProTable from '@ant-design/pro-table';
 import type { ProColumns } from '@ant-design/pro-table';
-import { Button } from 'antd';
+import { Link } from 'umi';
 // import { PlusOutlined } from '@ant-design/icons';
 // import { useState } from 'react';
 
 import UpdateForm from './updateForm';
 import CollectForm from './collectForm';
 import { useState } from 'react';
+
+import '../index.less';
 
 export default function Table(props: any) {
   const { msg } = props;
@@ -68,7 +70,8 @@ export default function Table(props: any) {
           >
             配置
           </a>,
-          <a
+          <Link
+            to={'/test/tag/detail/:12'}
             key="detail"
             onClick={() => {
               console.log(_);
@@ -76,7 +79,7 @@ export default function Table(props: any) {
             }}
           >
             详情
-          </a>,
+          </Link>,
           <a key="cancel">取消</a>,
         ];
       },
@@ -123,7 +126,6 @@ export default function Table(props: any) {
 
   //表格数据
   const tableRequest = (params: any, sort: any, filter: any): any => {
-    debugger;
     console.log(params);
     console.log(sort);
     console.log(filter);
@@ -207,8 +209,22 @@ export default function Table(props: any) {
         }}
         //操作栏自定义
         //toolBarRender={false}
+
         //关闭整个操作栏
         options={false}
+        // 翻页的配置项
+        pagination={{
+          className: 'pagCustom',
+          size: 'small',
+          pageSize: 5,
+          total: 100,
+          hideOnSinglePage: true,
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: (total, rang) => {
+            return `共${total}条，展示第${rang[0] + '-' + rang[1]} 条`;
+          },
+        }}
       />
 
       {/* 配置表单 (分布表单) */}
@@ -218,8 +234,6 @@ export default function Table(props: any) {
           setConfigModalVisible(false);
         }}
       />
-
-      {/* 收藏搜索 */}
     </>
   );
 }

@@ -66,6 +66,14 @@
         icon: 'icon-qiehuan',
         component: './Test/Tag',
       },
+      {
+        path: '/test/tag/detail/:id',
+        name: '详情',
+        // icon: 'icon-qiehuan',
+        hideChildrenInMenu: true,
+        hideInMenu: true,
+        component: './Test/Tag/components/detail',
+      },
     ],
   },
   {
