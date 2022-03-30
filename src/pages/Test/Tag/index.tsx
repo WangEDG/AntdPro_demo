@@ -3,6 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card } from 'antd';
 
 import Table from './components/table';
+import ApplicationForm from './components/applicationForm';
 
 import style from './index.less';
 
@@ -19,7 +20,7 @@ export default function Tab() {
     },
   ];
   const tabNode = {
-    one: <Table msg={activeTabKey} />,
+    one: <ApplicationForm />,
     two: <Table msg={activeTabKey} />,
   };
 
