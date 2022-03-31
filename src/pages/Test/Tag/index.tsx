@@ -4,6 +4,7 @@ import { Card } from 'antd';
 
 import Table from './components/table';
 import ApplicationForm from './components/applicationForm';
+import List from './components/list';
 
 import style from './index.less';
 
@@ -21,7 +22,7 @@ export default function Tab() {
   ];
   const tabNode = {
     one: <ApplicationForm />,
-    two: <Table msg={activeTabKey} />,
+    two: <List />,
   };
 
   return (
