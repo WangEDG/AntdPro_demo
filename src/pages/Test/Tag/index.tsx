@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card } from 'antd';
 
-import Table from './components/table';
 import ApplicationForm from './components/applicationForm';
 import List from './components/list';
 
