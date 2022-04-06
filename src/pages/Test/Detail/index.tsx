@@ -1,12 +1,37 @@
 import React from 'react';
 // Timeline
 // Descriptions
+import lodash from 'lodash';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Row, Col, Badge, Descriptions, Steps, Typography } from 'antd';
 import style from './index.less';
 const { Step } = Steps;
 
 export default function Detail() {
+  const StepsData = {
+    apply: {
+      handler: '三孚',
+      createTime: '2022-07-11 00:12:45',
+      status: '2',
+      suggestion:
+        '是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、不限可能的数据可视化最佳实践。得益于丰富的业务场景和用户需求挑战，AntV 经历多年积累与不断打磨，已支撑整个阿里集团内外 20000+ 业务系统，通过了日均千万级UV产品的严苛考验。我们正在基础图表，图分析，图编辑，地理空间可视化，智能可视化等各个可视化的领域耕耘，欢迎同路人一起前行',
+    },
+    audit: {
+      handler: '三孚',
+      createTime: '2022-07-11 00:12:45',
+      status: '通过',
+      suggestion:
+        '是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、不限可能的数据可视化最佳实践。得益于丰富的业务场景和用户需求挑战，AntV 经历多年积累与不断打磨，已支撑整个阿里集团内外 20000+ 业务系统，通过了日均千万级UV产品的严苛考验。我们正在基础图表，图分析，图编辑，地理空间可视化，智能可视化等各个可视化的领域耕耘，欢迎同路人一起前行',
+    },
+    disposal: [
+      {
+        handler: '三孚',
+        createTime: '2022-07-11 00:12:45',
+        status: '通过',
+        suggestion: '我觉得还ok',
+      },
+    ],
+  };
   const randerText = () => {
     return <span>处理完成</span>;
   };
@@ -68,7 +93,7 @@ export default function Detail() {
       '经过核实客诉的情况,可以确定是合规的,用户的更广泛的挨个大概我回复回复回复会返回回复回复回复发',
     ],
   };
-  const renderTitle = (tag) => {
+  const renderTitle = (tag: any) => {
     return (
       <Row gutter={10}>
         <Col>三忽</Col>
@@ -77,39 +102,38 @@ export default function Detail() {
       </Row>
     );
   };
-  const description = () => {
+  const description = (par: any, params: any) => {
+    console.log(Object.keys(par));
+
     return (
       <div className={style.description}>
         <div>
-          <span>三浮</span>
-          <span>2022-07-30 12:23:43</span>
+          {params.handler ? <span>{params.handler}</span> : <span>-</span>}
+          {params.createTime ? <span>{params.createTime}</span> : null}
         </div>
-        <div>发起审批</div>
-        <div>
-          <Descriptions>
-            <Descriptions.Item
-              label="审批意见"
-              contentStyle={{
-                color: 'red',
-              }}
-            >
-              <Typography.Text
-                ellipsis={{
-                  tooltip:
-                    '是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、不限可能的数据可视化最佳实践。得益于丰富的业务场景和用户需求挑战，AntV 经历多年积累与不断打磨，已支撑整个阿里集团内外 20000+ 业务系统，通过了日均千万级UV产品的严苛考验。我们正在基础图表，图分析，图编辑，地理空间可视化，智能可视化等各个可视化的领域耕耘，欢迎同路人一起前行',
-                }}
-                style={{
-                  color: 'red',
-                  width: '300px',
-                }}
-              >
-                是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、不限可能的数据可视化最佳实践。得益于丰富的业务场景和用户需求挑战，AntV
-                经历多年积累与不断打磨，已支撑整个阿里集团内外 20000+
-                业务系统，通过了日均千万级UV产品的严苛考验。我们正在基础图表，图分析，图编辑，地理空间可视化，智能可视化等各个可视化的领域耕耘，欢迎同路人一起前行
-              </Typography.Text>
-            </Descriptions.Item>
-          </Descriptions>
-        </div>
+        {params.status ? (
+          params.status === '1' ? (
+            <div>发起审批</div>
+          ) : params.status === '2' ? (
+            <div>审批中</div>
+          ) : (
+            <div>审批通过</div>
+          )
+        ) : null}
+        {params.suggestion ? (
+          <div>
+            <Descriptions>
+              <Descriptions.Item label="审批意见" contentStyle={{ color: 'red' }}>
+                <Typography.Text
+                  ellipsis={{ tooltip: params.suggestion }}
+                  style={{ color: 'red', width: '300px' }}
+                >
+                  {params.suggestion}
+                </Typography.Text>
+              </Descriptions.Item>
+            </Descriptions>
+          </div>
+        ) : null}
       </div>
     );
   };
@@ -190,7 +214,10 @@ export default function Detail() {
       </Card>
       <Card title="审批流程">
         <Steps progressDot current={5} direction="vertical">
-          <Step title={renderTitle('进行中。。。。')} description={description()} />
+          <Step
+            title={renderTitle('进行中。。。。')}
+            description={description(StepsData, StepsData.apply)}
+          />
           <Step title="Finished" description="This is a description. This is a description." />
           <Step title="In Progress" description="This is a description. This is a description." />
           <Step title="Waiting" description="This is a description." />

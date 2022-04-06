@@ -7,6 +7,26 @@ const { Step } = Steps;
 import style from '../index.less';
 
 export default function Detail() {
+  const StepsData = {
+    apply: {
+      handler: '三孚',
+      createTime: '2022-07-11 00:12:45',
+    },
+    audit: {
+      handler: '三孚',
+      createTime: '2022-07-11 00:12:45',
+      status: '通过',
+      suggestion: '我觉得还ok',
+    },
+    disposal: [
+      {
+        handler: '三孚',
+        createTime: '2022-07-11 00:12:45',
+        status: '通过',
+        suggestion: '我觉得还ok',
+      },
+    ],
+  };
   const renderTitle = () => {
     return (
       <Row gutter={10}>
