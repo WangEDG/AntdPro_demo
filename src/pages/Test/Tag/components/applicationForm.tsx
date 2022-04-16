@@ -8,9 +8,14 @@ import ProForm, {
   ProFormCascader,
 } from '@ant-design/pro-form';
 // import { useState } from 'react';
+import _ from 'lodash';
 
 export default function ApplicationForm() {
   const alertMessage = '你好！请准确完整填写。。。';
+  const fn: any = _.debounce(async (key) => {
+    console.log(key);
+  }, 250);
+
   return (
     <div>
       <Alert
@@ -48,16 +53,24 @@ export default function ApplicationForm() {
           }}
         />
         <ProFormSelect
-          label="职位:"
-          name="level"
+          label="负责人员:"
+          name="name"
           valueEnum={{
-            1: 'front end',
-            2: 'back end',
-            3: 'full stack',
+            1: '小王',
+            2: '小刘',
+            3: '小李',
           }}
-          colProps={{
-            span: 8,
+          showSearch //开启搜索
+          fieldProps={{
+            mode: 'multiple', //多选
+            autoClearSearchValue: true, //选中后清空搜索框
+            onChange: (value) => {
+              return value; //必须要return一个值出去 表单项才会展示值在输入框上
+            },
+            // onBlur
           }}
+          request={fn}
+          colProps={{ span: 8 }}
         />
         <ProFormText
           width="md"

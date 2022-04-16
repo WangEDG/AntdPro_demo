@@ -1,11 +1,12 @@
 import React from 'react';
 // Timeline
 // Descriptions
-import lodash from 'lodash';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Row, Col, Badge, Descriptions, Steps, Typography } from 'antd';
 import style from './index.less';
 const { Step } = Steps;
+
+type Status = 'wait' | 'process' | 'finish' | 'error';
 
 export default function Detail() {
   const StepsData = {
@@ -137,6 +138,20 @@ export default function Detail() {
       </div>
     );
   };
+
+  const NAME_DISPNODE: any = [];
+
+  const STATUS_DISPNODE: any = [];
+
+  const renderStepName = <T,>(condition: string, tag: string): T => {
+    if (tag === 'title') {
+      const item = NAME_DISPNODE.find((info: any) => info.value == condition);
+      return item?.label ? item.label : '-';
+    } else {
+      const item = STATUS_DISPNODE.find((info: any) => info.value == condition);
+      return item?.label ? item.label : 'process';
+    }
+  };
   return (
     <PageContainer>
       <Card title="基本信息">
@@ -213,7 +228,12 @@ export default function Detail() {
         </div>
       </Card>
       <Card title="审批流程">
-        <Steps progressDot current={5} direction="vertical">
+        <Steps
+          progressDot
+          current={5}
+          direction="vertical"
+          status={renderStepName<Status>('title', 'status')}
+        >
           <Step
             title={renderTitle('进行中。。。。')}
             description={description(StepsData, StepsData.apply)}
