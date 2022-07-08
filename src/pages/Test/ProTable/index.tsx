@@ -1,11 +1,42 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { PageContainer } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import type { ProColumns } from '@ant-design/pro-table';
 import { Button, Spin } from 'antd';
+// import { request } from 'umi';
+import { useRequest } from 'umi';
 import style from './index.less';
 
 const ProTableTest: React.FC = () => {
+  // 模拟网络请求
+  const editUsername = (username: number, time = 100): Promise<object> => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        // if (Math.random() > 0.5) {
+        //   resolve();
+        // } else {
+        //   reject(new Error('Failed to modify username'));
+        // }
+        if (username > 5) {
+          resolve({
+            success: true,
+            message: '请求成功',
+          });
+        } else {
+          reject(new Error('Failed to modify username'));
+        }
+      }, time);
+    });
+  };
+  /*ApiFox*/
+  // const outLogin = (options: any) => {
+  //   return request<Record<string, any>>('	http://127.0.0.1:4523/mock/868262/post/test/one', {
+  //     method: 'POST',
+  //     ...(options || {}),
+  //   });
+  // };
+
   const headerTitle = () => {
     return <div className={style.headerTitle}>高级表格测试使用</div>;
   };
@@ -85,9 +116,42 @@ const ProTableTest: React.FC = () => {
       total: tableData.length,
     };
   };
+
+  const {
+    run: test,
+    data: testData,
+    loading: testLoading,
+  } = useRequest(editUsername, {
+    manual: true,
+
+    // 对返回值做处理
+    formatResult: (res) => res,
+    // onBefore: (params: any) => {
+    //   debugger;
+    //   console.log(params);
+    // },
+    onSuccess: (data, params) => {
+      console.log('请求成功data:', data);
+      console.log('请求成功params', params);
+    },
+    onError: (data, params) => {
+      console.log('请求失败data:', data);
+      console.log('请求失败params', params);
+    },
+    // onFinally: () => {},
+
+    // onBefore: () => {},
+    // onFinally: () => {},
+  });
+
+  useEffect(() => {
+    test(10, 100);
+    test(20, 3000);
+  }, []);
+
   return (
     <PageContainer>
-      <Spin spinning={false}>
+      <Spin spinning={testLoading}>
         <ProTable
           headerTitle={headerTitle()}
           columns={columns}
